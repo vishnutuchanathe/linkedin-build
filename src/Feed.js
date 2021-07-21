@@ -9,10 +9,12 @@ import InputOption from './InputOption';
 import Post from './Post';
 import {db} from "./firebase";
 import firebase from 'firebase';
-import { log } from 'async';
+import { useSelector } from 'react-redux';
+import { selectUser } from './features/userSlice';
 
 function Feed() {
-    const [input, SetInput] = useState('');
+    const user = useSelector(selectUser);
+    const [input, setInput] = useState('');
     const [posts, setPosts] = useState([]);
     useEffect(() => {
         db.collection("posts").orderBy("timeStamp", "desc").onSnapshot((snapshot) => 
@@ -26,14 +28,15 @@ function Feed() {
             }, []);
     const sendPost = (e) => {
         e.preventDefault();
+        console.log(user.photoURL);
         db.collection('posts').add({
-            name: 'Vishnu S Mani',
-            description: 'this is a test',
+            name: user.displayName,
+            description: user.email,
             message: input,
-            photoUrl: '',
+            photoUrl: user.photoURL || "" ,
             timeStamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
-        SetInput('');
+        setInput('');
        
     };
     return (
@@ -42,7 +45,7 @@ function Feed() {
                 <div className="feed__input">
                 <CreateIcon/>
                 <form action="">
-                <input value={input} onChange={e => SetInput(e.target.value)} type="text" placeholder="Start a post"/>
+                <input value={input} onChange={e => setInput(e.target.value)} type="text" placeholder="Start a post"/>
                 <button onClick={sendPost} type="submit">Send</button>
                 </form>
                 </div>
@@ -54,8 +57,8 @@ function Feed() {
                 </div>
             </div>
             {/* Posts */}
-            {posts.map(({id,data:{name, description, message, photUrl}}) => (
-            <Post key={id} name={name} description={description} message={message}/>
+            {posts.map(({id,data:{name, description, message, photoUrl}}) => (
+            <Post key={id} name={name} photoUrl={photoUrl} description={description} message={message}/>
                 
             ))}
 
