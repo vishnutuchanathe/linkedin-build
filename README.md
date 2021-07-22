@@ -1,14 +1,14 @@
 ## Linkedin UI Clone
 
-This is a LinkedIn UI build (React) with basic functionalities like login and post.
+This is a LinkedIn UI build (React) with basic functionalities like login and post.\
 Website Link: [https://linkedin-clone-3497f.web.app/](https://linkedin-clone-3497f.web.app/)
 
-###Functionalities
+### Functionalities
 
-✔️ Login / Logout / Register
+✔️ Login / Logout / Register\
 ✔️ Post & Feed
 
-###🛠  Tech Stack used
+### 🛠  Tech Stack used
 🌐   HTML CSS JavaScript React Redux MaterialUI \
 🛢   FireStore\
 ⚙️   Git \
